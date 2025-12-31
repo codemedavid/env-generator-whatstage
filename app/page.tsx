@@ -43,6 +43,15 @@ export default function EnvWizard() {
     cronSecret: 'YOUR_CRON_SECRET', // Default placeholder, will generate random in useEffect or on click
   });
   const [copied, setCopied] = useState(false);
+  const [setupSql, setSetupSql] = useState<string>('');
+  const [setupSqlCopied, setSetupSqlCopied] = useState(false);
+
+  useEffect(() => {
+    fetch('/complete_setup.sql')
+      .then(res => res.text())
+      .then(text => setSetupSql(text))
+      .catch(err => console.error('Failed to load setup SQL:', err));
+  }, []);
 
   const slugify = (text: string) => {
     return text
@@ -437,7 +446,30 @@ SELECT cron.schedule(
                   onClick={() => navigator.clipboard.writeText(generateSql())}
                   style={{ width: '100%' }}
                 >
-                  Copy SQL to Clipboard
+                  Copy Cron SQL to Clipboard
+                </button>
+              </div>
+
+              {/* Complete Setup SQL Section */}
+              <div style={{ textAlign: 'left', background: 'rgba(255,255,255,0.05)', padding: '1rem', borderRadius: '0.5rem', marginTop: '2rem' }}>
+                <h4 style={{ marginTop: 0 }}>Complete Database Setup</h4>
+                <p style={{ fontSize: '0.8rem', color: 'var(--muted-foreground)', marginBottom: '1rem' }}>
+                  Run this first in your Supabase SQL Editor to set up all tables.
+                </p>
+                <div className="code-block" style={{ marginBottom: '1rem', maxHeight: '200px', overflow: 'auto' }}>
+                  {setupSql || 'Loading...'}
+                </div>
+                <button
+                  className="btn-secondary"
+                  onClick={() => {
+                    navigator.clipboard.writeText(setupSql);
+                    setSetupSqlCopied(true);
+                    setTimeout(() => setSetupSqlCopied(false), 2000);
+                  }}
+                  style={{ width: '100%' }}
+                  disabled={!setupSql}
+                >
+                  {setupSqlCopied ? 'Copied!' : 'Copy Setup SQL to Clipboard'}
                 </button>
               </div>
 
