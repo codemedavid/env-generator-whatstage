@@ -1,42 +1,204 @@
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+  --background: 222.2 84% 4.9%;
+  --foreground: 210 40% 98%;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
+  --card: 222.2 84% 4.9%;
+  --card-foreground: 210 40% 98%;
 
-html,
-body {
-  max-width: 100vw;
-  overflow-x: hidden;
-}
+  --popover: 222.2 84% 4.9%;
+  --popover-foreground: 210 40% 98%;
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  --primary: 263.4 70% 50.4%;
+  /* Purple */
+  --primary-foreground: 210 40% 98%;
+
+  --secondary: 217.2 32.6% 17.5%;
+  --secondary-foreground: 210 40% 98%;
+
+  --muted: 217.2 32.6% 17.5%;
+  --muted-foreground: 215 20.2% 65.1%;
+
+  --accent: 217.2 32.6% 17.5%;
+  --accent-foreground: 210 40% 98%;
+
+  --destructive: 0 62.8% 30.6%;
+  --destructive-foreground: 210 40% 98%;
+
+  --border: 217.2 32.6% 17.5%;
+  --input: 217.2 32.6% 17.5%;
+  --ring: 263.4 70% 50.4%;
+
+  --radius: 0.5rem;
 }
 
 * {
   box-sizing: border-box;
-  padding: 0;
+}
+
+body {
+  background-color: hsl(var(--background));
+  color: hsl(var(--foreground));
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem;
+  width: 100%;
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
+.card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 1rem;
+  padding: 2rem;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+  transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.card:hover {
+  border-color: rgba(139, 92, 246, 0.5);
+}
+
+h1,
+h2,
+h3 {
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  margin-top: 0;
+}
+
+h1 {
+  font-size: 2.5rem;
+  background: linear-gradient(to right, #c084fc, #6366f1);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+  color: hsl(var(--muted-foreground));
+}
+
+input {
+  width: 100%;
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid hsl(var(--border));
+  color: hsl(var(--foreground));
+  padding: 0.75rem;
+  border-radius: var(--radius);
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  margin-bottom: 1.5rem;
+}
+
+input:focus {
+  border-color: hsl(var(--ring));
+  box-shadow: 0 0 0 2px rgba(139, 92, 246, 0.2);
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  font-weight: 600;
+  border-radius: var(--radius);
+  transition: all 0.2s;
+  font-size: 1rem;
+}
+
+.btn-primary {
+  background: hsl(var(--primary));
+  color: white;
+  padding: 0.75rem 2rem;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  box-shadow: 0 0 15px rgba(139, 92, 246, 0.3);
+}
+
+.btn-primary:hover {
+  background: #7c3aed;
+  /* darker purple */
+  transform: translateY(-1px);
+  box-shadow: 0 0 25px rgba(139, 92, 246, 0.5);
+}
+
+.btn-secondary {
+  background: transparent;
+  color: hsl(var(--muted-foreground));
+  padding: 0.75rem 2rem;
+}
+
+.btn-secondary:hover {
+  color: hsl(var(--foreground));
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.progress-bar {
+  height: 4px;
+  background: hsl(var(--secondary));
+  border-radius: 9999px;
+  margin-bottom: 2rem;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(to right, #c084fc, #6366f1);
+  transition: width 0.5s ease-in-out;
+}
+
+.step-indicator {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+  font-size: 0.75rem;
+  color: hsl(var(--muted-foreground));
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.code-block {
+  background: rgba(0, 0, 0, 0.5);
+  padding: 1.5rem;
+  border-radius: var(--radius);
+  font-family: 'Menlo', 'Monaco', 'Courier New', monospace;
+  font-size: 0.875rem;
+  color: #a5b4fc;
+  overflow-x: auto;
+  white-space: pre;
+  border: 1px solid hsl(var(--border));
+  margin-bottom: 1.5rem;
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
