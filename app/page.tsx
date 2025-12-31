@@ -47,7 +47,7 @@ export default function EnvWizard() {
   const [setupSqlCopied, setSetupSqlCopied] = useState(false);
 
   useEffect(() => {
-    fetch('/complete_setup.sql')
+    fetch('/00_complete_migration.sql')
       .then(res => res.text())
       .then(text => setSetupSql(text))
       .catch(err => console.error('Failed to load setup SQL:', err));
